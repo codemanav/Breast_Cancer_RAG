@@ -1,8 +1,8 @@
 """
-Custom prompts for guiding GPT-4o in RAG analysis.
+Prompts that guide the chat model's analysis.
 """
 
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 COMPARE_PROMPT = PromptTemplate(
     input_variables=["context", "question"],
@@ -19,7 +19,7 @@ Instructions:
 - Use both life stories and scientific evidence.
 - Extract exposures, lifestyle choices, and psychosocial stressors.
 - Compare them carefully.
-- Output in JSON:
+- Respond with JSON only, no prose or code fences, in this shape:
 
 {{
   "risk_factors": [],
@@ -27,5 +27,5 @@ Instructions:
   "relative_risk": "",
   "supporting_sources": []
 }}
-"""
+""",
 )

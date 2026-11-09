@@ -1,66 +1,63 @@
 """
-Functions for loading essays (Word documents) and evidence JSON into LangChain Documents.
+Load essays (Word documents) and evidence cards (JSON) as LangChain Documents,
+and save/load processed documents as JSON Lines.
 """
 
-from langchain.docstore.document import Document
-from docx import Document as Docx
 import json
+from pathlib import Path
+
+from docx import Document as Docx
+from langchain_core.documents import Document
+
+from src.config import DOCUMENTS_FILE, ESSAY_DIR, ESSAYS, EVIDENCE_FILE
+
 
 def load_essay(path, source_name):
-    """
-    Load a Word (.docx) essay and return as LangChain Document.
-    """
-    doc = Docx(path)
-    text = "\n".join([p.text for p in doc.paragraphs if p.text.strip()])
+    """Load a Word (.docx) essay and return it as a LangChain Document."""
+    doc = Docx(str(path))
+    text = "\n".join(p.text.strip() for p in doc.paragraphs if p.text.strip())
     return Document(page_content=text, metadata={"source": source_name, "type": "essay"})
+
 
 def load_cards(path):
     """
-    Load evidence from a file that may contain:
-    - a JSON array of objects, OR
-    - multiple JSON objects (newline or back-to-back).
-    Returns a list of LangChain Documents.
+    Load evidence cards from a JSON array, a single JSON object, or JSON Lines.
+    Returns one Document per card.
     """
-    docs = []
-    with open(path, "r") as f:
-        content = f.read().strip()
+    content = Path(path).read_text(encoding="utf-8").strip()
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        data = [json.loads(line) for line in content.splitlines() if line.strip()]
+    if isinstance(data, dict):
+        data = [data]
 
-        try:
-            # Try reading as a JSON array first
-            data = json.loads(content)
-            if isinstance(data, dict):
-                data = [data]
-        except json.JSONDecodeError:
-            # Fall back: multiple objects (JSON Lines style)
-            data = []
-            for line in content.splitlines():
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    data.append(json.loads(line))
-                except json.JSONDecodeError:
-                    # If objects are separated without newlines, split manually
-                    # This works because each object starts with { and ends with }
-                    objects = content.split("}\n{")
-                    for i, obj in enumerate(objects):
-                        if not obj.startswith("{"):
-                            obj = "{" + obj
-                        if not obj.endswith("}"):
-                            obj = obj + "}"
-                        try:
-                            data.append(json.loads(obj))
-                        except:
-                            pass
-                    break
-
-    # Wrap each card into a LangChain Document
-    for card in data:
-        docs.append(
-            Document(
-                page_content=json.dumps(card, indent=2),
-                metadata={"source": card.get("title", "unknown"), "type": "evidence"}
-            )
+    return [
+        Document(
+            page_content=json.dumps(card, indent=2, ensure_ascii=False),
+            metadata={"source": card.get("title", "unknown"), "type": "evidence"},
         )
+        for card in data
+    ]
 
-    return docs
+
+def load_all_documents(essay_dir=ESSAY_DIR, evidence_file=EVIDENCE_FILE):
+    """Load both essays and all evidence cards."""
+    essays = [load_essay(Path(essay_dir) / fname, name) for fname, name in ESSAYS]
+    return essays + load_cards(evidence_file)
+
+
+def save_documents(docs, path=DOCUMENTS_FILE):
+    """Write Documents to a JSON Lines file."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as f:
+        for d in docs:
+            record = {"page_content": d.page_content, "metadata": d.metadata}
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def load_documents(path=DOCUMENTS_FILE):
+    """Read Documents back from a JSON Lines file written by save_documents."""
+    with Path(path).open(encoding="utf-8") as f:
+        return [Document(**json.loads(line)) for line in f if line.strip()]

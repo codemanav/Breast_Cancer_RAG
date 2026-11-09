@@ -1,34 +1,45 @@
 """
-Main script to run RAG pipeline on local essays + evidence.
+Run the RAG pipeline on the local essays and evidence cards.
+
+Usage:
+    python main.py                 # reuse db/chroma if it exists
+    python main.py --rebuild       # re-embed all documents
+    python main.py --query "..."   # ask a different question
 """
 
-from src.data_loader import load_essay, load_cards
-from src.vectorstore import build_vectorstore, load_vectorstore
+import argparse
+import json
+
+from src.config import require_api_key
+from src.data_loader import load_all_documents
 from src.rag_chain import build_rag
-from src.prompts import COMPARE_PROMPT
-from src.utils import pretty_print_sources
+from src.utils import parse_json_answer, pretty_print_sources
+from src.vectorstore import build_vectorstore, load_vectorstore, vectorstore_exists
+
+DEFAULT_QUERY = "Compare MaryAnne and Sue's environmental exposures with scientific evidence."
+
 
 def main():
-    # Load data
-    mary = load_essay("data/essays/maryanne.docx", "MaryAnne")
-    sue = load_essay("data/essays/sue.docx", "Sue")
-    cards = load_cards("data/evidence/cards.json")
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[1])
+    parser.add_argument("--query", default=DEFAULT_QUERY)
+    parser.add_argument("--rebuild", action="store_true", help="re-embed all documents")
+    args = parser.parse_args()
 
-    docs = [mary, sue] + cards
+    require_api_key()
 
-    # Build vectorstore locally
-    vs = build_vectorstore(docs)
+    if args.rebuild or not vectorstore_exists():
+        vs = build_vectorstore(load_all_documents())
+    else:
+        vs = load_vectorstore()
 
-    # Build RAG chain
-    qa = build_rag(vs, prompt=COMPARE_PROMPT)
+    qa = build_rag(vs)
+    result = qa.invoke({"query": args.query})
 
-    # Example query
-    query = "Compare MaryAnne and Sue's environmental exposures with scientific evidence."
-    result = qa.invoke({"query": query})
-
-    print("Answer:\n", result["result"])
+    parsed = parse_json_answer(result["result"])
+    print("Answer:\n", json.dumps(parsed, indent=2) if parsed else result["result"])
     print("\nSources Used:")
     pretty_print_sources(result["source_documents"])
+
 
 if __name__ == "__main__":
     main()
