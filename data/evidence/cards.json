@@ -1,0 +1,305 @@
+{
+    "doc_id": "10.54254/2753-8818/96/2025.21562",
+    "title": "Breast Cancer in Young Women: Epidemiology, Risk Factors, and Screening Challenges",
+    "year": 2025,
+    "type": "narrative_review",
+    "focus": "non-genetic risk in young adult breast cancer",
+    "population_focus": {
+        "age_range": "<40–45",
+        "notes": "incidence rising ages 25–39; ~4% of cases <40"
+    },
+    "key_numbers": [
+        "Global incidence ~2.3M/year",
+        "US 2024: 15.5% of new cancers; ~42,250 deaths (~6.9%)",
+        "Lifetime risk ~1 in 8 (invasive)",
+        "Diagnosis <45 → ~2× higher metastasis and mortality vs ≥45"
+    ],
+    "factors": [
+        {
+            "factor": "physical inactivity",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "protective effect of activity implied; no dose in text",
+            "population": {
+                "age": "all ages (young adults relevant)",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "no effect sizes reported in article",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "obesity / excess body weight",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "no BMI thresholds in text",
+            "population": {
+                "age": "all ages",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "premenopausal vs postmenopausal differences not detailed",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "alcohol consumption",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "no dose in text",
+            "population": {
+                "age": "all ages",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "first pregnancy after age 30",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "late first full-term pregnancy",
+            "population": {
+                "age": "young adults relevant",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "not breastfeeding",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "",
+            "population": {
+                "age": "postpartum/young adult relevant",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "nulliparity (never having a full-term pregnancy)",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "",
+            "population": {
+                "age": "all ages",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "use of certain hormone therapies",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "exposure_details": "type/dose/duration not specified",
+            "population": {
+                "age": "varies",
+                "sex": "female"
+            },
+            "evidence_type": "narrative_review",
+            "notes": "not distinguished: OCs vs menopausal hormone therapy",
+            "citation_anchor": "Risk Factors section"
+        },
+        {
+            "factor": "chronic psychological stress",
+            "category": "psychosocial",
+            "effect_direction": "mixed",
+            "magnitude": null,
+            "measurement": "e.g., perceived stress scale, PTSD scale, caregiving/job strain, allostatic load",
+            "population": {
+                "age": "premenopausal/young adult focus",
+                "sex": "female"
+            },
+            "evidence_type": "general_literature",
+            "notes": "biological plausibility; incidence evidence mixed; included per user scope; not discussed in this article",
+            "not_in_article": true
+        }
+    ],
+    "non_genetic_but_non_environmental": [
+        "early menarche (<12)",
+        "late menopause (>55)",
+        "dense breasts"
+    ],
+    "conclusion": "Incidence among young women is rising and tumors are more aggressive; targeting modifiable lifestyle factors alongside improved access/awareness may help reduce risk and disparities.",
+    "provenance": {
+        "source": "user-provided publisher text",
+        "sections_used": [
+            "Abstract",
+            "Risk Factors",
+            "Biology/Clinical",
+            "Conclusion"
+        ],
+        "notes": "Chronic stress factor added per user scope; not from this article"
+    }
+}
+{
+    "doc_id": "10.3390/ijerph18041871",
+    "title": "The Role of Stress in Breast Cancer Incidence: Risk Factors, Interventions, and Directions for the Future",
+    "year": 2021,
+    "type": "review",
+    "focus": "non-genetic risk in young adult breast cancer",
+    "population_focus": {
+        "age_range": "<40–50 (younger/premenopausal highlighted in some findings)",
+        "notes": "some effects (e.g., perceived stressful life events) appeared stronger in pre/perimenopausal women in cited studies"
+    },
+    "key_numbers": [
+        "Stressful life events (cohorts) RR 1.11 (95% CI 1.03–1.19)",
+        "Striking life events OR 1.50 (95% CI 1.15–1.97); severe striking events OR 2.07 (95% CI 1.06–4.03)",
+        "Job strain meta-analysis: breast cancer HR 0.97 (95% CI 0.82–1.14) (null)",
+        "Black Women’s Health Study: discrimination (job) IRR 1.32 (95% CI 1.03–1.70); discrimination in job/housing/police IRR 1.48 (95% CI 1.01–2.16) in <50 yrs",
+        "CRP and breast cancer pooled OR 1.16 (95% CI 1.06–1.27); stronger in Asian samples OR 1.57 (95% CI 1.25–1.96)",
+        "Prospective high-risk cohort: acute stressors HR 1.03 (0.99–1.08), chronic stressors HR 1.00 (0.90–1.11) (null)",
+        "UK Breakthrough Generations (n≈106,612): no overall association for self-reported stress/adverse events"
+    ],
+    "factors": [
+        {
+            "factor": "stressful life events (adverse/striking)",
+            "category": "psychosocial",
+            "effect_direction": "increases",
+            "magnitude": {
+                "measure": "RR/OR",
+                "value": 1.11,
+                "ci": [
+                    1.03,
+                    1.19
+                ],
+                "per_unit": "any history vs none; severity matters"
+            },
+            "measurement": "life event scales (e.g., Holmes–Rahe; study-specific)",
+            "population": {
+                "age": "all; stronger signals reported in pre/perimenopausal in some studies",
+                "sex": "female"
+            },
+            "evidence_type": "meta_analysis + cohort/case_control",
+            "notes": "Severity and timing (windows of susceptibility) matter; heterogeneity and misclassification across studies; publication bias considered in some reviews",
+            "citation_anchor": "Bahri 2019; Lin 2013; Fischer 2018"
+        },
+        {
+            "factor": "perceived cumulative stress from major life events",
+            "category": "psychosocial",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "measurement": "perceived stress linked to life events; cumulative indices",
+            "population": {
+                "age": "pre/perimenopausal signal noted",
+                "sex": "female"
+            },
+            "evidence_type": "case_control",
+            "notes": "Dose–response reported; stronger effect pre/perimenopausal; needs replication with rigorous confounder control",
+            "citation_anchor": "Fischer 2018"
+        },
+        {
+            "factor": "job strain (work stress)",
+            "category": "psychosocial",
+            "effect_direction": "null",
+            "magnitude": {
+                "measure": "HR",
+                "value": 0.97,
+                "ci": [
+                    0.82,
+                    1.14
+                ]
+            },
+            "measurement": "job strain models across cohorts",
+            "population": {
+                "age": "working-age women",
+                "sex": "female"
+            },
+            "evidence_type": "meta_analysis + cohort",
+            "notes": "No appreciable association with breast cancer risk across large cohorts",
+            "citation_anchor": "Heikkilä 2013; Vesterlund 2007; Schernhammer 2004"
+        },
+        {
+            "factor": "adverse childhood events (ACEs)",
+            "category": "psychosocial",
+            "effect_direction": "mixed",
+            "magnitude": null,
+            "measurement": "retrospective/prospective ACE inventories; biomarkers (adiponectin, C-peptide, hsCRP, IGF-1)",
+            "population": {
+                "age": "lifecourse exposure; adult incidence outcome",
+                "sex": "female"
+            },
+            "evidence_type": "observational + biomarker studies",
+            "notes": "Linked to toxic stress and to biomarkers associated with breast cancer; prospective links to incidence inconsistent; recall bias and under-measurement common",
+            "citation_anchor": "Holman 2016; Warner 2015; Nelson 2020"
+        },
+        {
+            "factor": "racism/discrimination (major experiences, everyday discrimination)",
+            "category": "psychosocial",
+            "effect_direction": "increases",
+            "magnitude": {
+                "measure": "IRR/OR",
+                "value": 1.32,
+                "ci": [
+                    1.03,
+                    1.7
+                ],
+                "per_unit": "job discrimination; up to IRR 1.48 across job/housing/police; ER− OR 1.09 with Jim Crow birth cohort context"
+            },
+            "measurement": "self-reported major/everyday discrimination; historical structural exposure",
+            "population": {
+                "age": "effects strongest in <50 yrs in BWHS; race-specific analyses",
+                "sex": "female"
+            },
+            "evidence_type": "longitudinal + natural experiment",
+            "notes": "Associated with higher inflammation (CRP, cytokines) and adverse health behaviors; structural racism context matters",
+            "citation_anchor": "Taylor 2007; Krieger 2017; Brody 2015; Moody 2014"
+        },
+        {
+            "factor": "chronic psychological stress (general)",
+            "category": "psychosocial",
+            "effect_direction": "mixed",
+            "magnitude": null,
+            "measurement": "varied (PSS, life events, job strain); biological pathways via HPA/SAM, cortisol, inflammation",
+            "population": {
+                "age": "mixed; some signals in premenopausal",
+                "sex": "female"
+            },
+            "evidence_type": "systematic_reviews + cohorts",
+            "notes": "Overall incidence evidence equivocal; severity, chronicity, timing, coping, and social support likely moderate effects",
+            "citation_anchor": "Chiriac 2018; Antoni 2006; Antonova 2011"
+        },
+        {
+            "factor": "alcohol use (stress-related coping)",
+            "category": "lifestyle",
+            "effect_direction": "increases",
+            "magnitude": null,
+            "measurement": "not quantified here; discussed as coping pathway",
+            "population": {
+                "age": "all; relevant to young adults",
+                "sex": "female"
+            },
+            "evidence_type": "review (pathway)",
+            "notes": "Stress/discrimination associated with higher alcohol consumption; alcohol is an established breast cancer risk factor",
+            "citation_anchor": "Williams 2008; Taylor 2007"
+        }
+    ],
+    "non_genetic_but_non_environmental": [],
+    "conclusion": "Evidence linking stress to breast cancer incidence is mixed overall, but severe/striking life events and major discrimination show modest risk increases (particularly in younger women), while job strain appears null; better cumulative stress measurement, attention to timing, severity, coping, social support, and biologic pathways (inflammation/HPA) are needed to clarify risk in young/premenopausal women.",
+    "provenance": {
+        "source": "user-provided full text (IJERPH 2021 review)",
+        "sections_used": [
+            "Introduction",
+            "Biopsychosocial stress model",
+            "Life events",
+            "Adverse childhood events",
+            "Racism as stressor",
+            "Chronic stress",
+            "Conclusions"
+        ],
+        "notes": "Effect sizes extracted as reported; no tables used"
+    }
+}
