@@ -6,12 +6,14 @@ import pytest
 
 import main
 import src.vectorstore as vectorstore
+from src.data_loader import load_all_documents
 from src.rag_chain import build_rag
 
 
 @pytest.fixture
-def offline_main(monkeypatch, fake_embeddings, fake_llm, chroma_dir):
-    """Point main.py at fake models and a temporary vector store."""
+def offline_main(monkeypatch, tmp_path, fake_embeddings, fake_llm, chroma_dir):
+    """Point main.py at fake models, a temporary vector store, and no paper PDFs."""
+    monkeypatch.setattr(main, "load_all_documents", partial(load_all_documents, papers_dir=tmp_path / "none"))
     monkeypatch.setattr(
         main,
         "build_vectorstore",

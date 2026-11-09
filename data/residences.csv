@@ -1,0 +1,9 @@
+participant_id,place,lat,lon,start_year,end_year,note
+P001,"Warminster Heights, PA",40.1935,-75.0815,1953,1968,town centroid; years from essay
+P001,"Warminster, PA",40.2007,-75.0899,1968,,end year not stated in essay
+P001,"New Brunswick, NJ",40.4862,-74.4518,,1988,start year not stated in essay
+P001,"Frostburg, MD",39.6581,-78.9283,1988,present,moved at age 35
+P002,"Warminster Heights, PA",40.1935,-75.0815,1950,1968,town centroid; years from essay
+P002,"Warminster, PA",40.2007,-75.0899,1968,1973,married at 23
+P002,"Horsham, PA",40.1784,-75.1285,1973,1976,"""a few years"""
+P002,"Warminster, PA",40.2007,-75.0899,1976,present,still living there

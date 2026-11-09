@@ -31,8 +31,9 @@ def fake_llm():
 
 
 @pytest.fixture
-def documents():
-    return load_all_documents()
+def documents(tmp_path):
+    # Essays + evidence cards only, so results don't depend on local paper PDFs.
+    return load_all_documents(papers_dir=tmp_path / "no-papers")
 
 
 @pytest.fixture

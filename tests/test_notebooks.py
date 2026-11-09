@@ -9,12 +9,13 @@ NOTEBOOK_DIR = Path(__file__).resolve().parent.parent / "notebooks"
 NOTEBOOKS = sorted(NOTEBOOK_DIR.glob("*.ipynb"))
 
 
-def test_all_four_notebooks_present():
+def test_all_notebooks_present():
     assert [p.name for p in NOTEBOOKS] == [
         "01_preprocess.ipynb",
         "02_build_vectorstore.ipynb",
         "03_rag_queries.ipynb",
         "04_analysis.ipynb",
+        "05_sister_pair_study.ipynb",
     ]
 
 
