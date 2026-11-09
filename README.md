@@ -1,5 +1,7 @@
 # Breast Cancer Evidence RAG
 
+[![tests](https://github.com/codemanav/Breast_Cancer_RAG/actions/workflows/tests.yml/badge.svg)](https://github.com/codemanav/Breast_Cancer_RAG/actions/workflows/tests.yml)
+
 A retrieval-augmented generation (RAG) prototype that compares two personal
 life stories with structured scientific evidence about breast-cancer risk
 factors. It retrieves the relevant essays and evidence cards from a local
@@ -19,6 +21,7 @@ supporting sources.
 - `src/` - document loading, Chroma vector store, prompt, and RAG chain.
 - `notebooks/` - the step-by-step pipeline (see below).
 - `main.py` - the end-to-end pipeline as a command-line script.
+- `tests/` - offline pytest suite (see Tests).
 
 ## Setup
 
@@ -56,6 +59,20 @@ Run them in order from the `notebooks/` folder:
 | `02_build_vectorstore.ipynb` | Embeds the documents into Chroma and spot-checks retrieval | Yes |
 | `03_rag_queries.ipynb` | Asks four comparison questions and saves `data/processed/rag_results.json` | Yes |
 | `04_analysis.ipynb` | Summarizes the answers, retrieved sources, and coverage of evidence-card factors | No |
+
+## Tests
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+The 30 tests run fully offline in about two seconds: OpenAI models are
+replaced with deterministic fakes and every vector store lives in a temporary
+directory, so no API key or network access is needed. They cover document
+loading, JSON answer parsing, idempotent index rebuilds, index reuse,
+prompt construction, the end-to-end CLI (first run, reuse, `--rebuild`,
+missing key), and notebook validity. GitHub Actions runs them on every push.
 
 ## How it works
 
