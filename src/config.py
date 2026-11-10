@@ -19,11 +19,11 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 DATA_DIR = PROJECT_ROOT / "data"
 ESSAY_DIR = DATA_DIR / "essays"
 EVIDENCE_FILE = DATA_DIR / "evidence" / "cards.json"
-PAPERS_DIR = DATA_DIR / "papers"  # research-paper PDFs (not committed)
+PAPERS_DIR = DATA_DIR / "papers"  # research-paper PDFs
 PARTICIPANTS_FILE = DATA_DIR / "participants.csv"
 RESIDENCES_FILE = DATA_DIR / "residences.csv"
-# PFAS Contamination Site Tracker (Northeastern University PFAS Project Lab).
-# Its license forbids redistribution, so it lives outside version control.
+# PFAS Contamination Site Tracker (PFAS Project Lab, Northeastern University);
+# included with the lab's permission, see data/external/README.md.
 PFAS_FILE = Path(os.getenv("PFAS_FILE", DATA_DIR / "external" / "pfas_sites.xlsx"))
 
 # Generated outputs

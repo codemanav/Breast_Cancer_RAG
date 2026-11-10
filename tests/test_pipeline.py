@@ -165,7 +165,7 @@ def test_steps_explain_missing_prerequisites(study):
 def test_exposure_requires_local_pfas_file(study, monkeypatch, tmp_path):
     monkeypatch.setattr(config, "PFAS_FILE", tmp_path / "missing.xlsx")
 
-    with pytest.raises(SystemExit, match="PFAS Project Lab"):
+    with pytest.raises(SystemExit, match="PFAS data not found"):
         pipeline.main(["exposure"])
 
 

@@ -114,6 +114,22 @@ def test_load_pfas_sites_from_tracker_layout(tmp_path):
     assert sites[0]["sample_year"] == 2019
 
 
+def test_bundled_tracker_covers_pilot_sites():
+    """The committed tracker loads and contains the sites near the pilot homes."""
+    from src.config import PFAS_FILE
+
+    sites = load_pfas_sites(PFAS_FILE)
+    warminster = {"place": "Warminster, PA", "lat": 40.2007, "lon": -75.0899,
+                  "start_year": 1976, "end_year": None, "current": True}
+
+    nearby = residence_exposure(warminster, sites, radius_km=5)
+
+    assert len(sites) > 1500
+    assert {"Naval Air Warfare Center Warminster", "Horsham Air Guard Station"} <= {
+        s["name"] for s in nearby["sites"]
+    }
+
+
 def test_repository_residences_parse():
     rows = load_residences()
 

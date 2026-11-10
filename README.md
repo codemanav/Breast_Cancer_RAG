@@ -86,9 +86,9 @@ rejects about 5% of the time, as it should.
 | Input | Status |
 |---|---|
 | Sister-pair narratives | 1 pair (MaryAnne and Sue). The study targets 30 pairs; recruitment is ongoing. |
-| Affected/unaffected labels | Not recorded yet. Fill the `affected` column in `data/participants.csv` (yes/no). |
-| Research papers | Evidence cards for 2 papers are included. Put the study's PDFs (about 30) in `data/papers/`. |
-| PFAS sites | PFAS Contamination Site Tracker, May 2024 (licensed; see below). |
+| Affected/unaffected labels | Not recorded for the pilot pair. When known, set `affected` to yes/no in `data/participants.csv`; until then the sister-pair test skips that pair. |
+| Research papers | 2 open-access papers (CC BY 4.0) in `data/papers/`, plus evidence cards for both. Add more PDFs there. |
+| PFAS sites | PFAS Contamination Site Tracker, May 2024, in `data/external/` (1,777 geocoded sites). |
 | Residence histories | Taken from the essays in `data/residences.csv`, with coordinates at the town level. |
 
 With a single sister pair there are no non-sister pairs to judge yet.
@@ -145,7 +145,7 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
-83 tests run fully offline in about 10 seconds, using deterministic fake
+84 tests run fully offline in about 10 seconds, using deterministic fake
 models and temporary data, and GitHub Actions runs them on every push. They
 cover:
 
@@ -162,13 +162,13 @@ cover:
 
 ## Data sources and licensing
 
-- **PFAS Contamination Site Tracker**, PFAS Project Lab, Social Science
-  Environmental Health Research Institute, Northeastern University. Its terms
-  forbid redistribution and require credit and advance notice to the lab
-  before public use of results, so the file is not in this repository. Request
-  it from the lab, then place it at `data/external/pfas_sites.xlsx` or set
-  `PFAS_FILE`.
-- **Research papers**: most are copyrighted, so the PDFs are not committed.
+- **PFAS Contamination Site Tracker** (May 2024): PFAS Project Lab, Social
+  Science Environmental Health Research Institute, Northeastern University.
+  Included with the lab's permission. Any public use of results derived from
+  it must credit the lab and be shared with the lab at least 7 days before
+  release; see [data/external/README.md](data/external/README.md).
+- **Research papers**: open access under CC BY 4.0; citations are in
+  [data/papers/README.md](data/papers/README.md).
 - **Essays**: shared with the participants' consent for this project.
 
 ## Limitations

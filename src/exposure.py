@@ -3,9 +3,8 @@ Estimate PFAS exposure by matching each participant's residence history to
 known contamination sites.
 
 Data: PFAS Contamination Site Tracker, PFAS Project Lab, Social Science
-Environmental Health Research Institute, Northeastern University. Its license
-forbids redistribution, so the file is read from a local path (config.PFAS_FILE)
-and derived outputs are not committed.
+Environmental Health Research Institute, Northeastern University (included
+with the lab's permission; see data/external/README.md for terms of use).
 
 Limitation: a site's sample date is when contamination was *detected*, not
 when it began, so proximity is a screening signal, not a dose estimate.

@@ -83,8 +83,8 @@ def cmd_exposure(args):
 
     if not config.PFAS_FILE.exists():
         sys.exit(
-            f"PFAS data not found at {config.PFAS_FILE}. Request the tracker from the "
-            "PFAS Project Lab (pfasproject@gmail.com) and set PFAS_FILE or copy it there."
+            f"PFAS data not found at {config.PFAS_FILE}. Restore data/external/pfas_sites.xlsx "
+            "or point PFAS_FILE at a copy of the PFAS Project Lab tracker."
         )
     sites = load_pfas_sites(config.PFAS_FILE)
     exposures = participant_exposures(load_residences(config.RESIDENCES_FILE), sites, radius_km=args.radius_km)
