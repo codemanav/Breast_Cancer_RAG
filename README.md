@@ -95,46 +95,27 @@ scientific evidence, never another participant's story. The tests replace
 OpenAI with deterministic fakes, so the whole system runs offline in CI.
 
 ```mermaid
-flowchart TB
-    subgraph entry["Entry points"]
-        cli["<b>pipeline.py</b><br/>index · cards · exposure<br/>compare · rank · simulate"]
-        demo["<b>main.py</b><br/>single-question RAG demo"]
-        nb["<b>notebooks/</b> 01–05"]
-        tests["<b>tests/</b> · GitHub Actions<br/>84 offline tests, fake models"]
+flowchart LR
+    entry["<b>pipeline.py · main.py</b><br/>notebooks"]
+
+    subgraph src["src/ modules"]
+        ingest["<b>Ingestion</b><br/>story cards · PFAS exposure"]
+        retrieval["<b>Retrieval</b><br/>vector store · RAG chain"]
+        analysis["<b>Analysis</b><br/>pairwise judge · ranking"]
     end
 
-    subgraph ingest["Ingestion"]
-        loader["<b>data_loader</b><br/>docx · PDF chunks · CSV"]
-        story["<b>story_cards</b><br/>schema validation + retry"]
-        expo["<b>exposure</b><br/>haversine site matching"]
-    end
+    inputs[("<b>Inputs</b><br/>stories · residences<br/>PFAS sites · papers")]
+    chroma[("<b>Chroma</b><br/>vector DB")]
+    openai(["<b>OpenAI API</b><br/>GPT-4o · embeddings"])
+    outputs[("<b>Outputs</b><br/>rankings · sister-pair test")]
 
-    subgraph retrieval["Retrieval"]
-        rag["<b>rag_chain</b><br/>LangChain runnables"]
-        vec["<b>vectorstore</b><br/>idempotent rebuilds"]
-    end
-
-    subgraph analysis["Analysis"]
-        pair["<b>pairwise</b><br/>order-swap judging<br/>concurrent + resumable"]
-        rank["<b>ranking</b><br/>Bradley–Terry · Davidson<br/>sister-pair test"]
-        sim["<b>simulate</b><br/>power analysis"]
-    end
-
-    subgraph backing["Data, storage and services"]
-        data[("<b>data/</b><br/>essays · CSVs<br/>papers · PFAS tracker")]
-        openai["<b>OpenAI API</b><br/>GPT-4o (extraction, judging)<br/>text-embedding-3-large"]
-        chroma[("<b>Chroma</b><br/>demo + literature<br/>collections")]
-        out[("<b>data/processed/</b><br/>cards · exposure<br/>comparisons · ranking")]
-    end
-
-    entry --> ingest & retrieval & analysis
-    rag --> vec
-    pair --> vec
-    sim --> rank
-    ingest --> data
-    ingest & retrieval & analysis --> openai
-    vec --> chroma
-    analysis --> out
+    entry --> src
+    inputs --> ingest & retrieval
+    ingest --> analysis
+    retrieval -- evidence --> analysis
+    retrieval <--> chroma
+    src -.-> openai
+    analysis --> outputs
 ```
 
 ## Study-design power analysis
