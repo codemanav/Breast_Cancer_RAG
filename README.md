@@ -21,13 +21,36 @@ non-genetic factors worth investigating.
 
 ## How it works
 
-```text
-life stories (.docx) ──► story cards ──┐
-                       (LLM, schema)    │
-PFAS sites + residence ─► exposure ─────┼──► pairwise judge ──► Bradley–Terry / ──► sister-pair test,
-history                  summaries      │    (LLM + RAG,        Davidson models      per-domain results
-research papers + ──────► vector store ─┘     both orders)
-evidence cards            (Chroma)
+```mermaid
+flowchart TD
+    subgraph inputs["Inputs"]
+        essays["Sister-pair life stories<br/>(.docx)"]
+        homes["Residence histories<br/>(places + years)"]
+        pfas[("PFAS Contamination<br/>Site Tracker<br/>1,777 sites")]
+        lit["Research papers +<br/>evidence cards"]
+    end
+
+    essays --> cards["<b>1. Story cards</b><br/>LLM extracts a 9-domain<br/>life-course profile"]
+    homes --> exposure["<b>2. PFAS exposure</b><br/>sites within 5 km,<br/>years lived nearby"]
+    pfas --> exposure
+    lit --> index[("<b>3. Literature index</b><br/>chunked + embedded<br/>in Chroma")]
+
+    cards --> pairs["Every pair of women<br/>from different families<br/>(1,740 at 30 sister pairs)"]
+    pairs --> judge
+    exposure --> judge
+    index -- "evidence retrieved<br/>for each pair" --> judge
+
+    subgraph judge["4. Pairwise judge (LLM)"]
+        direction LR
+        ab["Judge A vs B"] --> agree{"Same verdict<br/>both orders?"}
+        ba["Judge B vs A"] --> agree
+        agree -- yes --> keep["Keep win / loss"]
+        agree -- no --> tie["Record a tie"]
+    end
+
+    judge -- "win / loss / tie<br/>per domain + overall" --> models["<b>5. Ranking models</b><br/>Bradley–Terry + Davidson<br/>(maximum likelihood)"]
+    models --> test(["<b>6. Sister-pair test</b><br/>Is the affected sister riskier<br/>than random pairs?"])
+    test --> findings["Domains that separate<br/>affected from unaffected<br/>sisters → hypotheses"]
 ```
 
 1. **Story cards.** The LLM converts each participant's life story into a
@@ -62,6 +85,57 @@ evidence cards            (Chroma)
 
 With the target of 30 sister pairs (60 participants) there are
 C(60, 2) − 30 = **1,740** non-sister pairs to judge.
+
+## System architecture
+
+Two entry points share one set of modules. `pipeline.py` runs the study, and
+`main.py` is the original single-question demo. The literature and the demo
+each have their own Chroma collection, so the judge only ever retrieves
+scientific evidence, never another participant's story. The tests replace
+OpenAI with deterministic fakes, so the whole system runs offline in CI.
+
+```mermaid
+flowchart TB
+    subgraph entry["Entry points"]
+        cli["<b>pipeline.py</b><br/>index · cards · exposure<br/>compare · rank · simulate"]
+        demo["<b>main.py</b><br/>single-question RAG demo"]
+        nb["<b>notebooks/</b> 01–05"]
+        tests["<b>tests/</b> · GitHub Actions<br/>84 offline tests, fake models"]
+    end
+
+    subgraph ingest["Ingestion"]
+        loader["<b>data_loader</b><br/>docx · PDF chunks · CSV"]
+        story["<b>story_cards</b><br/>schema validation + retry"]
+        expo["<b>exposure</b><br/>haversine site matching"]
+    end
+
+    subgraph retrieval["Retrieval"]
+        rag["<b>rag_chain</b><br/>LangChain runnables"]
+        vec["<b>vectorstore</b><br/>idempotent rebuilds"]
+    end
+
+    subgraph analysis["Analysis"]
+        pair["<b>pairwise</b><br/>order-swap judging<br/>concurrent + resumable"]
+        rank["<b>ranking</b><br/>Bradley–Terry · Davidson<br/>sister-pair test"]
+        sim["<b>simulate</b><br/>power analysis"]
+    end
+
+    subgraph backing["Data, storage and services"]
+        data[("<b>data/</b><br/>essays · CSVs<br/>papers · PFAS tracker")]
+        openai["<b>OpenAI API</b><br/>GPT-4o (extraction, judging)<br/>text-embedding-3-large"]
+        chroma[("<b>Chroma</b><br/>demo + literature<br/>collections")]
+        out[("<b>data/processed/</b><br/>cards · exposure<br/>comparisons · ranking")]
+    end
+
+    entry --> ingest & retrieval & analysis
+    rag --> vec
+    pair --> vec
+    sim --> rank
+    ingest --> data
+    ingest & retrieval & analysis --> openai
+    vec --> chroma
+    analysis --> out
+```
 
 ## Study-design power analysis
 
