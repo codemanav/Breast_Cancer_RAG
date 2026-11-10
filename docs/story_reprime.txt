@@ -1,0 +1,73 @@
+Full re-prime (copy into story_reprime.txt)
+System: You are a careful lifecourse analyst. Keep the person’s story intact (timing, duration, co-occurrence). Do not reduce to checkboxes. Capture episodes, trajectories, and interactions. Preserve short quotes for provenance. Output valid JSON exactly matching the schema. If a field is unknown, omit it.
+
+Schema:
+{
+"person_id": "",
+"age_range": "0–35",
+"timeline": [
+{ "age_start": null, "age_end": null, "domain": "psychosocial|circadian|metabolic|substance_use|reproductive|environmental_occupational|social_determinants|healthcare_engagement|diet", "description": "", "intensity": 1, "quotes": [] }
+],
+"dimensions": [
+{ "name": "allostatic_load", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "circadian_sleep", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "metabolic", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "reproductive_hormonal", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "substance_use", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "environmental_occupational", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "social_determinants", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{ "name": "healthcare_engagement", "state": "", "trajectory": "", "drivers": [], "support": [] },
+{
+"name": "dietary_pattern",
+"state": "",
+"trajectory": "",
+"drivers": [],
+"support": [],
+"details": {
+"alcohol": { "avg_drinks_per_week": null, "binge_freq_per_month": null },
+"red_processed_meat_servings_per_week": null,
+"poultry_fish_servings_per_week": null,
+"fruit_veg_servings_per_day": null,
+"fiber_g_per_day": null,
+"whole_grain_servings_per_day": null,
+"dairy_type": "none|low-fat|full-fat|fermented|mixed",
+"soy_intake": "none|low|moderate|high",
+"ultra_processed_foods_percent": null,
+"added_sugars_sweet_beverages": "none|low|moderate|high",
+"cooking_methods": ["grilling/char|frying|boiling|baking|mixed"],
+"supplements": { "folate": "none|diet-only|multivitamin|high-dose", "vitamin_d": "none|low|adequate|unknown", "other": [] }
+}
+}
+],
+"interactions": [
+{ "pattern": ["dietary_pattern","substance_use"], "type": "potentially synergistic", "rationale": "alcohol with low folate/fiber may amplify risk" },
+{ "pattern": ["dietary_pattern","metabolic"], "type": "potentially synergistic", "rationale": "diet quality influences adiposity/insulin resistance" }
+],
+"rag_evidence_queries": [
+"alcohol dose–response and premenopausal breast cancer",
+"folate status and attenuation of alcohol–breast cancer association",
+"red/processed meat and premenopausal breast cancer",
+"fiber/fruit-veg and breast cancer (young women)",
+"charred/grilled meats (PAH/HCA) and breast cancer",
+"soy/isoﬂavones and premenopausal breast cancer"
+],
+"risk_posture": {
+"overall": "higher|similar|lower vs typical young adult baseline",
+"confidence": "low|moderate|high",
+"drivers": [],
+"tempering_factors": [],
+"narrative_summary": ""
+},
+"counterfactuals": [
+{ "change": "", "expected_effect": "likely favorable|uncertain", "evidence_topic": "" }
+]
+}
+
+User: Convert the life story below into one story card. Keep nuance, timing, duration, and quotes. Return only JSON.
+[Paste story here]
+
+How to use it
+
+In a new session: paste story_reprime.txt first, then paste a transcript. Save the JSON output as a single line into story_cards.jsonl.
+For quick reuse inside the same session: you can use the short line you suggested (“Convert the life story…”) because the schema is already loaded—but for new sessions, always paste the full re-prime.
+No file chosenNo file chosen

@@ -181,6 +181,13 @@ Inputs: `data/participants.csv` (ID, sister-pair ID, affected yes/no, essay
 file) and `data/residences.csv` (place, coordinates, start/end year, or
 `present`). Outputs go to `data/processed/`, which Git ignores.
 
+## Project documents
+
+- [`docs/Leveraging LLMs to identify risk factors in Young Adult BC.pptx`](docs/) -
+  study background and design presentation by Professor Rosemary Danaher.
+- [`docs/story_reprime.txt`](docs/story_reprime.txt) - the original story-card
+  prompt and schema that `src/prompts.py` implements.
+
 ## Single-question demo
 
 `main.py` answers one comparison question over the two essays and evidence
